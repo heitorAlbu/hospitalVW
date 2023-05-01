@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HospitalVitorWolmerAPI.Contexto;
+using HospitalVitorWolmerAPI.Dominio;
+using HospitalVitorWolmerAPI.Servico;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalVitorWolmerAPI.Controllers
@@ -7,19 +10,16 @@ namespace HospitalVitorWolmerAPI.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-
-
-        [HttpGet ("teste")]
-        public string teste() 
+        private readonly DBContexto _DBContext;
+        public HomeController(DBContexto DBContext)
         {
-            return "!?";
-        
+            _DBContext = DBContext;
         }
 
-        [HttpGet("testeabc")]
-        public string testeabc()
+        [HttpGet("obterMedicos")]
+        public List<Medico> ObterMedicos()
         {
-            return "Novo endpoint GET com rota testeabc!";
+            return  _DBContext.Medicos.ToList();
         }
 
 
